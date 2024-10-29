@@ -1,0 +1,8 @@
+services:
+  dev:
+    build: .
+    tty: true
+    volumes:
+      - .:/workspace
+      - $HOME/data:/data
+    ipc: host

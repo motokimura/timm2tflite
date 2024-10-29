@@ -116,7 +116,7 @@ Testing notebook.ipynb
 
 # Root dir exclusions
 /*.csv
-/*.yaml
+#/*.yaml  # comment out to add compose.yaml
 /*.json
 /*.jpg
 /*.png
