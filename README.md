@@ -36,10 +36,13 @@ docker compose build dev
 docker compose run dev
 ```
 
-## Preparing ImageNet Dataset (optional)
+## Prepare ImageNet Dataset (optional)
 
 If you are going to quantize or evaluate the models, you need to prepare ImageNet dataset
 (you can skip this section if you want to do simple TFLite conversion without quantization or evaluation).
+
+<details close>
+<summary>prepare ImageNet dataset</summary>
 
 Download ImageNet dataset under `$HOME/data/imagenet`.
 
@@ -83,7 +86,7 @@ rm -rf $HOME/data/tmp_imagenet
 
 You can remove `test` directory if you want to save disk space.
 
-### Generating mini val dataset (optional)
+### Generate mini val dataset
 
 To reduce evaluation time, you can use [tools/gen_mini_imagenet.py](tools/gen_mini_imagenet.py) to generate a subset of `val` dataset:
 
@@ -93,7 +96,7 @@ python tools/gen_mini_imagenet.py --data-dir /data/imagenet --out-dir /data/mini
 
 If you are evaluating with the mini dataset, please change `--data-dir /data/imagenet` to `--data-dir /data/mini_imagenet_5000` in the subsequent commands.
 
-### Preparing calibration dataset for quantization (optional)
+### Prepare calibration dataset for quantization
 
 If you are going to quantize the models, use [prep_calib.py](tools/prep_calib.py) to generate calibration dataset:
 
@@ -103,9 +106,11 @@ python tools/prep_calib.py /data/imagenet --n-img 512
 
 With the command above, 512 images from `train` directory of ImageNet dataset will be copied to `$HOME/data/imagenet/calib` directory (`/data/imagenet/calib` in the container).
 
+</details>
+
 ## Usage
 
-### Converting to TFLite
+### Convert to TFLite
 
 ```bash
 python tools/tflite_export.py -m resnet18 --check-forward
@@ -118,13 +123,19 @@ You can check if the output of the PyTorch model and the TFLite model are consis
 
 With the command above, `resnet18.a1_in1k.tflite` (TFLite-fp32 model) will be generated under the current directory.
 
+### Evaluate TFLite models
+
+(ImageNet dataset is required. See `Prepare ImageNet Dataset` section for details.)
+
 After the conversion, you can evaluate the converted TFLite model on ImageNet:
 
 ```bash
 python tools/tflite_validate.py resnet18.a1_in1k.tflite --data-dir /data/imagenet
 ```
 
-### Converting to TFLite with quantization
+### Convert to TFLite with quantization
+
+(ImageNet dataset is required. See `Prepare ImageNet Dataset` section for details.)
 
 You can generate a quantized TFLite model by adding `--quant` option:
 
@@ -140,7 +151,9 @@ After the conversion, you can evaluate the quantized TFLite model on ImageNet:
 python tools/tflite_validate.py resnet18.a1_in1k.tflite --data-dir /data/imagenet
 ```
 
-### Evaluating PyTorch models (optionally with PT2E quantization)
+### Evaluate PyTorch models (optionally with PT2E quantization)
+
+(ImageNet dataset is required. See `Prepare ImageNet Dataset` section for details.)
 
 ```bash
 python tools/validate.py -m resnet18 --data-dir /data/imagenet
