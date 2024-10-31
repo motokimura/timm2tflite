@@ -98,7 +98,7 @@ If you are evaluating with the mini dataset, please change `--data-dir /data/ima
 
 ### Prepare calibration dataset for quantization
 
-If you are going to quantize the models, use [prep_calib.py](tools/prep_calib.py) to generate calibration dataset:
+If you are going to quantize the models, use [tools/prep_calib.py](tools/prep_calib.py) to generate calibration dataset:
 
 ```bash
 python tools/prep_calib.py /data/imagenet --n-img 512
@@ -155,6 +155,8 @@ python tools/tflite_validate.py resnet18.a1_in1k.tflite --data-dir /data/imagene
 
 (ImageNet dataset is required. See `Prepare ImageNet Dataset` section for details.)
 
+To evaluate PyTorch models, use [tools/validate.py](tools/validate.py):
+
 ```bash
 python tools/validate.py -m resnet18 --data-dir /data/imagenet
 ```
@@ -166,7 +168,7 @@ Also, you can specify the batch size with `-b` or `--batch-size` option (note th
 python tools/validate.py -m resnet18 --data-dir /data/imagenet --device cpu -b 1
 ```
 
-When evaluating PyTorch models quantized with [PT2E](https://pytorch.org/tutorials/prototype/quantization_in_pytorch_2_0_export_tutorial.html), add `--quant` option:
+To evaluate PyTorch models quantized with [PT2E](https://pytorch.org/tutorials/prototype/quantization_in_pytorch_2_0_export_tutorial.html), add `--quant` option:
 
 ```bash
 python tools/validate.py -m resnet18 --data-dir /data/imagenet --device cpu -b 1 --quant --calib-data-dir /data/imagenet/calib
