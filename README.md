@@ -70,16 +70,16 @@ kaggle competitions download -c imagenet-object-localization-challenge
 
 unzip imagenet-object-localization-challenge.zip
 
-cd ILSVRC/Data/CLC-LOC/val
+cd ILSVRC/Data/CLS-LOC/val
 wget https://raw.githubusercontent.com/soumith/imagenetloader.torch/master/valprep.sh
 sh valprep.sh
 rm -f valprep.sh
 
 mkdir -p $HOME/data/imagenet
 cd $HOME/data/imagenet
-mv $HOME/data/tmp_imagenet/ILSVRC/Data/CLC-LOC/train .
-mv $HOME/data/tmp_imagenet/ILSVRC/Data/CLC-LOC/val .
-mv $HOME/data/tmp_imagenet/ILSVRC/Data/CLC-LOC/test .
+mv $HOME/data/tmp_imagenet/ILSVRC/Data/CLS-LOC/train .
+mv $HOME/data/tmp_imagenet/ILSVRC/Data/CLS-LOC/val .
+mv $HOME/data/tmp_imagenet/ILSVRC/Data/CLS-LOC/test .
 
 rm -rf $HOME/data/tmp_imagenet
 ```
